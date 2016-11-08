@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="71bbcc1b-68ff-4504-8f08-2f774836c41b" name="Default" comment="" />
+    <list default="true" id="71bbcc1b-68ff-4504-8f08-2f774836c41b" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/GKS/Detail.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/GKS/SpecificDetail.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Detail.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/SpecificDetail.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/GKS/Analysis.class" afterPath="$PROJECT_DIR$/out/production/GKS/Analysis.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/GKS/Main.class" afterPath="$PROJECT_DIR$/out/production/GKS/Main.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Analysis.java" afterPath="$PROJECT_DIR$/src/Analysis.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
+    </list>
     <ignored path="GKS.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -25,25 +39,53 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1444">
-              <caret line="29" column="35" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
+            <state relative-caret-position="610">
+              <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#constructionMatrixExistence#0;class#Main#0" expanded="false" />
                 <element signature="method#showMatrixExistence#0;class#Main#0" expanded="false" />
                 <element signature="method#constructionMatrixMatch#0;class#Main#0" expanded="false" />
                 <element signature="method#showMatrixMatch#0;class#Main#0" expanded="false" />
+                <element signature="method#grouping#0;class#Main#0" expanded="false" />
+                <element signature="method#showGroups#0;class#Main#0" expanded="false" />
+                <element signature="method#getData#0;class#Main#0" expanded="false" />
+                <element signature="method#arrayDetailIsExist#0;class#Main#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dataFile_Dmitry.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/dataFile_Dmitry.txt">
+      <file leaf-file-name="Element.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Element.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="11" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
-              <folding />
+            <state relative-caret-position="340">
+              <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+              <folding>
+                <element signature="e#222#223#0" expanded="true" />
+                <element signature="e#251#252#0" expanded="true" />
+                <element signature="e#400#401#0" expanded="true" />
+                <element signature="e#437#438#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Analysis.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Analysis.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1445">
+              <caret line="88" column="38" selection-start-line="88" selection-start-column="38" selection-end-line="88" selection-end-column="38" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#486#487#0" expanded="true" />
+                <element signature="e#518#519#0" expanded="true" />
+                <element signature="e#3889#3890#0" expanded="true" />
+                <element signature="e#3922#3923#0" expanded="true" />
+                <element signature="e#3971#3972#0" expanded="true" />
+                <element signature="e#4003#4004#0" expanded="true" />
+                <marker date="1478628201406" expanded="false" signature="3677:3840" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -58,32 +100,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dataFile_Catherine.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/dataFile_Catherine.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Analysis.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Analysis.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="371">
-              <caret line="62" column="32" selection-start-line="62" selection-start-column="32" selection-end-line="62" selection-end-column="32" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#checkInput#0;class#Analysis#0" expanded="false" />
-                <element signature="method#checkMaxDetailsInColumn#0;class#Analysis#0" expanded="false" />
-                <element signature="e#2611#2675#0" expanded="false" />
-                <marker date="1476954488085" expanded="false" signature="3515:3678" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -92,6 +108,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -106,9 +125,11 @@
         <option value="$PROJECT_DIR$/src/Detail.java" />
         <option value="$PROJECT_DIR$/src/dataFile.txt" />
         <option value="$PROJECT_DIR$/src/dataFile_b.txt" />
-        <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/dataFile_f.txt" />
         <option value="$PROJECT_DIR$/src/Analysis.java" />
+        <option value="$PROJECT_DIR$/src/SpecificElement.java" />
+        <option value="$PROJECT_DIR$/src/Element.java" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
       </list>
     </option>
   </component>
@@ -128,6 +149,34 @@
     <option name="y" value="-8" />
     <option name="width" value="1382" />
     <option name="height" value="744" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Android</id>
+          </State>
+          <State>
+            <id>Android Lint</id>
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
+          <State>
+            <id>Java language level migration aidsJava</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Android</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -154,6 +203,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -188,17 +239,16 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -481,7 +531,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -492,11 +542,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31587562" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3154574" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2980333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18887262" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -507,7 +558,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -523,7 +573,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -534,6 +584,223 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#constructionMatrixExistence#0;class#Main#0" expanded="false" />
+            <element signature="method#showMatrixExistence#0;class#Main#0" expanded="false" />
+            <element signature="method#constructionMatrixMatch#0;class#Main#0" expanded="false" />
+            <element signature="method#showMatrixMatch#0;class#Main#0" expanded="false" />
+            <element signature="method#grouping#0;class#Main#0" expanded="false" />
+            <element signature="method#showGroups#0;class#Main#0" expanded="false" />
+            <element signature="method#getData#0;class#Main#0" expanded="false" />
+            <element signature="method#arrayDetailIsExist#0;class#Main#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Element.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+          <folding>
+            <element signature="e#222#223#0" expanded="true" />
+            <element signature="e#251#252#0" expanded="true" />
+            <element signature="e#400#401#0" expanded="true" />
+            <element signature="e#437#438#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Analysis.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1445">
+          <caret line="88" column="38" selection-start-line="88" selection-start-column="38" selection-end-line="88" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#486#487#0" expanded="true" />
+            <element signature="e#518#519#0" expanded="true" />
+            <element signature="e#3889#3890#0" expanded="true" />
+            <element signature="e#3922#3923#0" expanded="true" />
+            <element signature="e#3971#3972#0" expanded="true" />
+            <element signature="e#4003#4004#0" expanded="true" />
+            <marker date="1478628201406" expanded="false" signature="3677:3840" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataFile_f.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#constructionMatrixExistence#0;class#Main#0" expanded="false" />
+            <element signature="method#showMatrixExistence#0;class#Main#0" expanded="false" />
+            <element signature="method#constructionMatrixMatch#0;class#Main#0" expanded="false" />
+            <element signature="method#showMatrixMatch#0;class#Main#0" expanded="false" />
+            <element signature="method#grouping#0;class#Main#0" expanded="false" />
+            <element signature="method#showGroups#0;class#Main#0" expanded="false" />
+            <element signature="method#getData#0;class#Main#0" expanded="false" />
+            <element signature="method#arrayDetailIsExist#0;class#Main#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Analysis.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#486#487#0" expanded="true" />
+            <element signature="e#518#519#0" expanded="true" />
+            <element signature="e#3889#3890#0" expanded="true" />
+            <element signature="e#3922#3923#0" expanded="true" />
+            <element signature="e#3971#3972#0" expanded="true" />
+            <element signature="e#4003#4004#0" expanded="true" />
+            <marker date="1478628201406" expanded="false" signature="3677:3840" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#constructionMatrixExistence#0;class#Main#0" expanded="false" />
+            <element signature="method#showMatrixExistence#0;class#Main#0" expanded="false" />
+            <element signature="method#constructionMatrixMatch#0;class#Main#0" expanded="false" />
+            <element signature="method#showMatrixMatch#0;class#Main#0" expanded="false" />
+            <element signature="method#grouping#0;class#Main#0" expanded="false" />
+            <element signature="method#showGroups#0;class#Main#0" expanded="false" />
+            <element signature="method#getData#0;class#Main#0" expanded="false" />
+            <element signature="method#arrayDetailIsExist#0;class#Main#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Analysis.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#486#487#0" expanded="true" />
+            <element signature="e#518#519#0" expanded="true" />
+            <element signature="e#3889#3890#0" expanded="true" />
+            <element signature="e#3922#3923#0" expanded="true" />
+            <element signature="e#3971#3972#0" expanded="true" />
+            <element signature="e#4003#4004#0" expanded="true" />
+            <marker date="1478628201406" expanded="false" signature="3677:3840" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#constructionMatrixExistence#0;class#Main#0" expanded="false" />
+            <element signature="method#showMatrixExistence#0;class#Main#0" expanded="false" />
+            <element signature="method#constructionMatrixMatch#0;class#Main#0" expanded="false" />
+            <element signature="method#showMatrixMatch#0;class#Main#0" expanded="false" />
+            <element signature="method#grouping#0;class#Main#0" expanded="false" />
+            <element signature="method#showGroups#0;class#Main#0" expanded="false" />
+            <element signature="method#getData#0;class#Main#0" expanded="false" />
+            <element signature="method#arrayDetailIsExist#0;class#Main#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Analysis.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#486#487#0" expanded="true" />
+            <element signature="e#518#519#0" expanded="true" />
+            <element signature="e#3889#3890#0" expanded="true" />
+            <element signature="e#3922#3923#0" expanded="true" />
+            <element signature="e#3971#3972#0" expanded="true" />
+            <element signature="e#4003#4004#0" expanded="true" />
+            <marker date="1478628201406" expanded="false" signature="3677:3840" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#constructionMatrixExistence#0;class#Main#0" expanded="false" />
+            <element signature="method#showMatrixExistence#0;class#Main#0" expanded="false" />
+            <element signature="method#constructionMatrixMatch#0;class#Main#0" expanded="false" />
+            <element signature="method#showMatrixMatch#0;class#Main#0" expanded="false" />
+            <element signature="method#grouping#0;class#Main#0" expanded="false" />
+            <element signature="method#showGroups#0;class#Main#0" expanded="false" />
+            <element signature="method#getData#0;class#Main#0" expanded="false" />
+            <element signature="method#arrayDetailIsExist#0;class#Main#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataFile_Dmitry.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="11" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataFile_f.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataFile_Catherine.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Analysis.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="867">
+          <caret line="62" column="32" selection-start-line="62" selection-start-column="32" selection-end-line="62" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#486#487#0" expanded="true" />
+            <element signature="e#518#519#0" expanded="true" />
+            <element signature="e#3889#3890#0" expanded="true" />
+            <element signature="e#3922#3923#0" expanded="true" />
+            <element signature="e#3971#3972#0" expanded="true" />
+            <element signature="e#4003#4004#0" expanded="true" />
+            <marker date="1478628201406" expanded="false" signature="3677:3840" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
           <caret line="39" column="55" selection-start-line="39" selection-start-column="55" selection-end-line="39" selection-end-column="55" />
           <folding>
@@ -542,6 +809,10 @@
             <element signature="method#showMatrixExistence#0;class#Main#0" expanded="false" />
             <element signature="method#constructionMatrixMatch#0;class#Main#0" expanded="false" />
             <element signature="method#showMatrixMatch#0;class#Main#0" expanded="false" />
+            <element signature="method#grouping#0;class#Main#0" expanded="false" />
+            <element signature="method#showGroups#0;class#Main#0" expanded="false" />
+            <element signature="method#getData#0;class#Main#0" expanded="false" />
+            <element signature="method#arrayDetailIsExist#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -550,7 +821,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -558,26 +828,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="6" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Detail.java">
+    <entry file="file://$PROJECT_DIR$/src/Element.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
-          <folding>
-            <element signature="method#Detail#0;class#Detail#0" expanded="false" />
-            <element signature="method#getName#0;class#Detail#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/SpecificDetail.java">
+    <entry file="file://$PROJECT_DIR$/src/SpecificElement.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -587,10 +851,13 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#checkInput#0;class#Analysis#0" expanded="false" />
-            <element signature="method#checkMaxDetailsInColumn#0;class#Analysis#0" expanded="false" />
-            <element signature="e#2611#2675#0" expanded="false" />
-            <marker date="1476954488085" expanded="false" signature="3515:3678" ph="..." />
+            <element signature="e#486#487#0" expanded="true" />
+            <element signature="e#518#519#0" expanded="true" />
+            <element signature="e#3889#3890#0" expanded="true" />
+            <element signature="e#3922#3923#0" expanded="true" />
+            <element signature="e#3971#3972#0" expanded="true" />
+            <element signature="e#4003#4004#0" expanded="true" />
+            <marker date="1478628201406" expanded="false" signature="3677:3840" ph="..." />
           </folding>
         </state>
       </provider>
@@ -603,30 +870,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Object.java" />
-    <entry file="file://$PROJECT_DIR$/src/Detail.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
-          <folding>
-            <element signature="method#Detail#0;class#Detail#0" expanded="false" />
-            <element signature="method#getName#0;class#Detail#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SpecificDetail.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/dataFile_b.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -634,7 +881,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="13" column="11" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -642,7 +888,43 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Analysis.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1445">
+          <caret line="88" column="38" selection-start-line="88" selection-start-column="38" selection-end-line="88" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#486#487#0" expanded="true" />
+            <element signature="e#518#519#0" expanded="true" />
+            <element signature="e#3889#3890#0" expanded="true" />
+            <element signature="e#3922#3923#0" expanded="true" />
+            <element signature="e#3971#3972#0" expanded="true" />
+            <element signature="e#4003#4004#0" expanded="true" />
+            <marker date="1478628201406" expanded="false" signature="3677:3840" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SpecificElement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Element.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+          <folding>
+            <element signature="e#222#223#0" expanded="true" />
+            <element signature="e#251#252#0" expanded="true" />
+            <element signature="e#400#401#0" expanded="true" />
+            <element signature="e#437#438#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -654,30 +936,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Analysis.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="62" column="32" selection-start-line="62" selection-start-column="32" selection-end-line="62" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#checkInput#0;class#Analysis#0" expanded="false" />
-            <element signature="method#checkMaxDetailsInColumn#0;class#Analysis#0" expanded="false" />
-            <element signature="e#2611#2675#0" expanded="false" />
-            <marker date="1476954488085" expanded="false" signature="3515:3678" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1444">
-          <caret line="29" column="35" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
+        <state relative-caret-position="610">
+          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#constructionMatrixExistence#0;class#Main#0" expanded="false" />
             <element signature="method#showMatrixExistence#0;class#Main#0" expanded="false" />
             <element signature="method#constructionMatrixMatch#0;class#Main#0" expanded="false" />
             <element signature="method#showMatrixMatch#0;class#Main#0" expanded="false" />
+            <element signature="method#grouping#0;class#Main#0" expanded="false" />
+            <element signature="method#showGroups#0;class#Main#0" expanded="false" />
+            <element signature="method#getData#0;class#Main#0" expanded="false" />
+            <element signature="method#arrayDetailIsExist#0;class#Main#0" expanded="false" />
           </folding>
         </state>
       </provider>
