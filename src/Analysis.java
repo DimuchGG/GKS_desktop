@@ -43,27 +43,15 @@ public class Analysis {
         for (int i = 0; i < data.length; i++) {
             String[] parts = data[i].split(" ");
             for (int j = 0; j < parts.length; j++) {
-                if (listTotalElements.size() == 0) {
-                    Element element = new SpecificElement(parts[0]);
-//                    element.setName(parts[0]);
-                    listTotalElements.add(element);
-                }
+                if (listTotalElements.size() == 0)
+                    listTotalElements.add(new SpecificElement(parts[0]));
                 for (int k = 0; k < listTotalElements.size(); k++) {
 //                    System.out.println(parts[j] + " * " + listTotalElements.get(k) + listTotalElements.toString());
-                    if (parts[j].equals(listTotalElements.get(k).getName())) {
-//                    if (parts[j].charAt(0) == listTotalElements.get(k).charAt(0) &&
-//                            parts[j].charAt(1) == listTotalElements.get(k).charAt(1)) {
-//                        System.out.println("true");
+                    if (parts[j].equals(listTotalElements.get(k).getName()))
                         break;
-                    } else {
-//                        System.out.println("false");
-                        if (k == listTotalElements.size() - 1) {
-//                            System.out.println("false-true");
-                            Element element = new SpecificElement(parts[j]);
-//                            element.setName(parts[j]);
-                            listTotalElements.add(element);
-                            break;
-                        }
+                    else if (k == listTotalElements.size() - 1) {
+                        listTotalElements.add(new SpecificElement(parts[j]));
+                        break;
                     }
                 }
             }

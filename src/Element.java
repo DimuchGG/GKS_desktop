@@ -19,11 +19,6 @@ public abstract class Element {
         return name;
     }
 
-    @Override
-    public String toString() {
-        return "" + name + "";
-    }
-
     public void setName(String name) {
         this.name = name;
         setSymbolKey(String.valueOf(name.charAt(0)));
@@ -44,5 +39,10 @@ public abstract class Element {
 
     public void setNumKey(String numKey) {
         this.numKey = numKey;
+    }
+
+    @Override
+    public String toString() {
+        return "" + name + "";
     }
 }
