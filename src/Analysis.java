@@ -46,7 +46,7 @@ public class Analysis {
                 if (listTotalElements.size() == 0)
                     listTotalElements.add(new SpecificElement(parts[0]));
                 for (int k = 0; k < listTotalElements.size(); k++) {
-//                    System.out.println(parts[j] + " * " + listTotalElements.get(k) + listTotalElements.toString());
+//                    System.out.println(parts[j] + " * " + listTotalElements.get(k) + "  " + listTotalElements.toString());
                     if (parts[j].equals(listTotalElements.get(k).getName()))
                         break;
                     else if (k == listTotalElements.size() - 1) {
