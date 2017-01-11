@@ -35,8 +35,11 @@ public class Main {
     private static List<List<Element>> alGroupUniqueElements;
     //лист упрощенных групп деталей
     private static List<List<List<Element>>> alSimpleGroupDetails;
-    //лист модулей
+    //лист модулей в группе
     private static List<List<Element>> alModules;
+    //лист модулей
+    private static List<List<List<Element>>> alGroupModules;
+    private static int counter = 0;
 
     public static void main(String[] args) {
 
@@ -47,7 +50,7 @@ public class Main {
         String stroka = "";
         for (String s : data)
             stroka += s + "\n";
-        System.out.print(stroka);
+//        System.out.print(stroka);
 
         //Analysis - класс для работы с data[]
         Analysis analysis = new Analysis(data);
@@ -56,7 +59,7 @@ public class Main {
             alDetails = analysis.getAlDetails();
             //Получаем список всех элементов
             listTotalElements = analysis.getTotalElements();
-            System.out.println("\n" + listTotalElements.toString());
+//            System.out.println("\n" + listTotalElements.toString());
 
             //Формирование 1 матрицы (наличия)
             constructionMatrixExistence();
@@ -68,7 +71,7 @@ public class Main {
 
             //объединение в группы
             unionOfDetailsInGroups();
-            showGroupDetails(alGroupDetails);
+            showGroupDetails("Group", alGroupDetails);
 
             //создание групп с уникальными деталями
             alGroupUniqueElements = createGroupUniqueDetails(alGroupDetails);
@@ -76,17 +79,17 @@ public class Main {
 
             //сортировка листов групп по колличеству элементов в листе уникальных элементов
             sortListDetailsAndListUniqueDetails();
-//            showGroupDetails(alGroupDetails);
+//            showGroupDetails("Group", alGroupDetails);
 //            showGroupUniqueDetails("Group", alGroupUniqueElements);
 
             //упрощение групп
             alSimpleGroupDetails = simplifyGroups();
-            showGroupDetails(alSimpleGroupDetails);
+            showGroupDetails("Group", alSimpleGroupDetails);
 //            showGroupDetailsOnTheElements(alSimpleGroupDetails);
 
             //создание модулей
             createModule();
-            showGroupUniqueDetails("Module", alModules);
+            showGroupModules("Group", alGroupModules);
         }
     }
 
@@ -220,10 +223,10 @@ public class Main {
         }
     }
 
-    private static void showGroupDetails(List<List<List<Element>>> alGroupDetails) {
+    private static void showGroupDetails(String message, List<List<List<Element>>> alGroupDetails) {
         System.out.println("");
         for (int i = 0; i < alGroupDetails.size(); i++) {
-            System.out.print("Group " + (i + 1) + ":");
+            System.out.print(message + " " + (i + 1) + ":");
             for (int j = 0; j < alGroupDetails.get(i).size(); j++) {
 //                System.out.print("  " + alGroupDetails.get(i).get(j).toString());
                 System.out.print("  " + String.valueOf(alDetails.indexOf(alGroupDetails.get(i).get(j)) + 1));
@@ -316,111 +319,320 @@ public class Main {
         List<List<Element>> alGroupUniqueElements = createGroupUniqueDetails(alSimpleGroupDetails);
 //        showGroupUniqueDetails("Group", alGroupUniqueElements);
 
-        for (int i = 0; i < 1; i++) {
-//        for (int i = 0; i < alGroupUniqueElements.size(); i++) {
+        alGroupModules = new ArrayList<>();
+
+//        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < alGroupUniqueElements.size(); i++) {
             List<List<Element>> alLinksBetweenDetails = creatingLinksBetweenDetails(alSimpleGroupDetails.get(i));
+//            List<List<Element>> alLinksBetweenDetails = creatingLinksBetweenDetails();
+
             List<List<Boolean>> matrixForGraph = createMatrixLinks(alLinksBetweenDetails,
                     alGroupUniqueElements.get(i));
 
             alModules = new ArrayList<>();
 
-            combineFirstRule(matrixForGraph, alGroupUniqueElements.get(i));
-//            System.out.println(alModules);
-//            combineSecondRule(matrixForGraph);
-//            combineThirdRule(matrixForGraph);
+            List<List<Element>> alElementaryGraphChain;
+
+            alElementaryGraphChain = createElementaryGraphChain(matrixForGraph, alGroupUniqueElements.get(i));
+            sortALElementaryGraphChain(alElementaryGraphChain);
+            removeExcessInChain(alElementaryGraphChain);
+//            show3List(alElementaryGraphChain);
+//            showMatrix_0_1(matrixForGraph);
+
+            combineThirdRule(matrixForGraph, alGroupUniqueElements.get(i),
+                    alLinksBetweenDetails, alElementaryGraphChain);
+
+            alElementaryGraphChain = createElementaryGraphChain(matrixForGraph, alGroupUniqueElements.get(i));
+            sortALElementaryGraphChain(alElementaryGraphChain);
+            removeExcessInChain(alElementaryGraphChain);
+
+            combineFirstRule(matrixForGraph, alGroupUniqueElements.get(i),
+                    alLinksBetweenDetails, alElementaryGraphChain);
+
+            alGroupModules.add(alModules);
         }
-
     }
 
-    private static boolean combineThirdRule(List<List<Boolean>> matrixForGraph) {
-        boolean isCombine = false;
-
-        return isCombine;
+    private static void showGroupModules(String message, List<List<List<Element>>> alGroupDetails) {
+        System.out.println("");
+        for (int i = 0; i < alGroupDetails.size(); i++) {
+            System.out.print(message + " " + (i + 1) + ":");
+            for (int j = 0; j < alGroupDetails.get(i).size(); j++) {
+                System.out.print("\n\t\tModule " + (j + 1) + ": " + alGroupDetails.get(i).get(j).toString());
+//                System.out.print("  " + String.valueOf(alDetails.indexOf(alGroupDetails.get(i).get(j)) + 1));
+            }
+            System.out.println(".");
+        }
     }
 
-    private static boolean combineSecondRule(List<List<Boolean>> matrixForGraph) {
-        boolean isCombine = false;
+    private static List<List<Element>> creatingLinksBetweenDetails() {
+        List<List<Element>> alLinksBetweenDetails = new ArrayList<>();
 
-        return isCombine;
+        List<Element> temp = new ArrayList<>();
+        temp.add(new SpecificElement("T1"));
+        temp.add(new SpecificElement("T2"));
+        alLinksBetweenDetails.add(temp);
+
+        temp = new ArrayList<>();
+        temp.add(new SpecificElement("T2"));
+        temp.add(new SpecificElement("T1"));
+        alLinksBetweenDetails.add(temp);
+        return alLinksBetweenDetails;
     }
 
-    private static boolean combineFirstRule(List<List<Boolean>> matrixForGraph, List<Element> alGroupUniqueElements) {
-        boolean isCombine = false;
+    private static void sortALElementaryGraphChain(List<List<Element>> alElementaryGraphChain) {
+        Collections.sort(alElementaryGraphChain,
+                (o1, o2) -> ((o1.size() < o2.size()) ? 1 : (o1.size() == o2.size() ? 0 : -1)));
+    }
+
+    private static void removeExcessInChain(List<List<Element>> alElementaryGraphChain) {
+        for (int i = 0; i < alElementaryGraphChain.size(); i++) {
+            if (alElementaryGraphChain.get(i).size() > RESTRICTION) {
+                for (int j = 5; j < alElementaryGraphChain.get(i).size(); j++) {
+                    alElementaryGraphChain.get(i).remove(j);
+                    j--;
+                }
+            }
+            if (i > 0 && alElementaryGraphChain.get(i).equals(alElementaryGraphChain.get(i - 1))) {
+                alElementaryGraphChain.remove(i);
+                i--;
+            }
+        }
+    }
+
+    private static void show3List(List<List<Element>> list) {
+        System.out.println(list.size());
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
+    }
+
+    private static List<List<Element>> createElementaryGraphChain(List<List<Boolean>> matrixForGraph,
+                                                                  List<Element> alUniqueElements) {
+        List<List<Element>> alElementaryGraphChain = new ArrayList<>();
         for (int i = 0; i < matrixForGraph.size(); i++) {
             for (int j = 0; j < matrixForGraph.size(); j++) {
-                if (matrixForGraph.get(i).get(j) && matrixForGraph.get(j).get(i)) {
-//                    showMatrix_0_1(matrixForGraph);
-//                    System.out.println(" i = " + i + " j = " + j +
-//                            " Element[i] " + alGroupUniqueElements.get(i) +
-//                            " Element[j] " + alGroupUniqueElements.get(j));
+                if (matrixForGraph.get(i).get(j)) {
+                    List<Element> elementaryGraphChain = new ArrayList<>();
+                    elementaryGraphChain.add(alUniqueElements.get(i));
+                    addVertex(matrixForGraph, alElementaryGraphChain, elementaryGraphChain, j, alUniqueElements);
+                }
+            }
+        }
+        return alElementaryGraphChain;
+    }
 
-//                    System.out.println("****************************");
-//                    System.out.println();
-//
-//
-//                    System.out.println();
-//                    System.out.println("****************************");
+    private static void addVertex(List<List<Boolean>> matrixForGraph, List<List<Element>> alElementaryGraphChain,
+                                  List<Element> elementaryGraphChain, int firstVertex, List<Element> alUniqueElements) {
+        elementaryGraphChain.add(alUniqueElements.get(firstVertex));
+        List<Element> tempElementaryGraphChain = new ArrayList<>();
+        tempElementaryGraphChain.addAll(elementaryGraphChain);
+        alElementaryGraphChain.add(tempElementaryGraphChain);
+        for (int i = 0; i < matrixForGraph.size(); i++) {
+            if (matrixForGraph.get(firstVertex).get(i) && elementaryGraphChain.contains(alUniqueElements.get(i))) {
+                continue;
+            } else if (matrixForGraph.get(firstVertex).get(i)) {
+                List<Element> saveElementaryGraphChain = new ArrayList<>();
+                saveElementaryGraphChain.addAll(elementaryGraphChain);
+                addVertex(matrixForGraph, alElementaryGraphChain, elementaryGraphChain, i, alUniqueElements);
+                elementaryGraphChain = saveElementaryGraphChain;
+            }
+        }
+    }
 
-                    List<Element> alCombineElements = getALCombineElements(alGroupUniqueElements, new int[]{i, j});
-                    List<Element> rowModule = belongsToModules(alCombineElements);
-                    List<Element> alNewElement = newElementForModule(rowModule, alCombineElements);
-                    if (rowModule.isEmpty()) {
-                        for (int k = 0; k < alCombineElements.size(); k++) {
-                            rowModule.add(alCombineElements.get(k));
-                        }
-                        alModules.add(rowModule);
-//                        System.out.println(false);
-                    } else if (!rowModule.isEmpty() && (rowModule.size() + alNewElement.size() <= RESTRICTION)) {
-//                        System.out.println(alNewElement);
-                        for (int k = 0; k < alNewElement.size(); k++) {
-                            rowModule.add(alNewElement.get(k));
-                        }
-//                        System.out.println(true);
-                    } else if (!rowModule.isEmpty() && (rowModule.size() + alNewElement.size() > RESTRICTION)) {
-                        for (int k = 0; k < alNewElement.size(); k++) {
-                            List<Element> elementOfALNewElement = new ArrayList<>();
-                            elementOfALNewElement.add(alNewElement.get(k));
-                            alModules.add(elementOfALNewElement);
-                        }
-                        for (int k = 0; k < matrixForGraph.size(); k++) {
-                            matrixForGraph.get(k).remove(i);
-                        }
-                        matrixForGraph.remove(i);
-                        alGroupUniqueElements.remove(i);
+    private static boolean combineThirdRule(List<List<Boolean>> matrixForGraph, List<Element> alUniqueElements,
+                                            List<List<Element>> alLinksBetweenDetails,
+                                            List<List<Element>> alElementaryGraphChain) {
+        boolean isCombine = false;
+        for (int i = 0; i < alElementaryGraphChain.size(); i++) {
+            if (isBetweenTheElementsOfLink(alLinksBetweenDetails, alElementaryGraphChain.get(i).get(0),
+                    alElementaryGraphChain.get(i).get(alElementaryGraphChain.get(i).size() - 1))
+                    && alElementaryGraphChain.get(i).size() > 2) {
+                //мы нашли цепь подходящую под правило (3)
+
+                //нужно создать модули из элементов цепи
+                List<Integer> rowsForCombine = new ArrayList<>();
+                for (int j = 0; j < alElementaryGraphChain.get(i).size(); j++) {
+                    rowsForCombine.add(alUniqueElements.indexOf(alElementaryGraphChain.get(i).get(j)));
+                }
+//                System.out.println(rowsForCombine);
+
+                List<Element> alCombineElements = getALCombineElements(alUniqueElements, rowsForCombine);
+//                System.out.println(alCombineElements);
+                List<Element> rowModule = belongsToModules(alCombineElements);
+                List<Integer> alNewRowsForCombine = new ArrayList<>();
+                List<Element> alNewElement = newElementForModule(rowModule, alCombineElements,
+                        alNewRowsForCombine, alUniqueElements);
+//                System.out.println(alNewRowsForCombine);
+
+                if (rowModule.isEmpty()) {
+                    for (int k = 0; k < alCombineElements.size(); k++) {
+                        rowModule.add(alCombineElements.get(k));
                     }
+                    alModules.add(rowModule);
 
-//                    System.out.println(alModules);
+                    //удалить все элементы цепи из матрицы (matrixForGraph), (alUniqueElements)
+                    sortALNewRowsForCombine(rowsForCombine);
+                    combineRowsInMatrixForGraph(matrixForGraph, alUniqueElements, rowsForCombine, 1);
+                    if (rowModule.size() == RESTRICTION) {
+                        for (int j = 0; j < matrixForGraph.size(); j++) {
+                            matrixForGraph.get(j).remove(alUniqueElements.indexOf(rowModule.get(0)));
+                        }
+                        matrixForGraph.remove(alUniqueElements.indexOf(rowModule.get(0)));
+                        alUniqueElements.remove(alUniqueElements.indexOf(rowModule.get(0)));
+                    }
+                    //найти все элементарные цепи в новой матрице
+                    alElementaryGraphChain = createElementaryGraphChain(matrixForGraph, alUniqueElements);
+                    sortALElementaryGraphChain(alElementaryGraphChain);
+                    removeExcessInChain(alElementaryGraphChain);
 
-                    combineRows(matrixForGraph, alGroupUniqueElements, new int[]{i, j});
-                    combineFirstRule(matrixForGraph, alGroupUniqueElements);
                     isCombine = true;
+                } else if (rowModule.size() + alNewElement.size() <= RESTRICTION) {
+//                        System.out.println(alNewElement);
+                    for (int k = 0; k < alNewElement.size(); k++) {
+                        rowModule.add(alNewElement.get(k));
+                    }
+                    //удалить все элементы цепи из матрицы (matrixForGraph), (alUniqueElements)
+                    combineRowsInMatrixForGraph(matrixForGraph, alUniqueElements, alNewRowsForCombine, 0);
+                    if (rowModule.size() == RESTRICTION) {
+                        for (int j = 0; j < matrixForGraph.size(); j++) {
+                            matrixForGraph.get(j).remove(alUniqueElements.indexOf(rowModule.get(0)));
+                        }
+                        matrixForGraph.remove(alUniqueElements.indexOf(rowModule.get(0)));
+                        alUniqueElements.remove(alUniqueElements.indexOf(rowModule.get(0)));
+                    }
+                    //найти все элементарные цепи в новой матрице
+                    alElementaryGraphChain = createElementaryGraphChain(matrixForGraph, alUniqueElements);
+                    sortALElementaryGraphChain(alElementaryGraphChain);
+                    removeExcessInChain(alElementaryGraphChain);
+
+                    isCombine = true;
+                } else if (rowModule.size() + alNewElement.size() > RESTRICTION) {
+                    continue;
+                }
+                if (isCombine) {
+                    combineThirdRule(matrixForGraph, alUniqueElements,
+                            alLinksBetweenDetails, alElementaryGraphChain);
                     break;
-//                    System.out.println(alModules);
-//                    showMatrix_0_1(matrixForGraph);
-//                    isCombine = true;
-//                    System.out.println(true);
+                }
+            }
+        }
+        return isCombine;
+    }
+
+    private static void sortALNewRowsForCombine(List<Integer> alNewRowsForCombine) {
+        List<Integer> temp = new ArrayList<>();
+        temp.addAll(alNewRowsForCombine);
+        temp.remove(0);
+        Collections.sort(temp, ((o1, o2) -> (o1 > o2 ? 1 : -1)));
+        for (int j = 0; j < temp.size(); j++)
+            alNewRowsForCombine.set(j + 1, temp.get(j));
+    }
+
+    private static boolean combineFirstRule(List<List<Boolean>> matrixForGraph, List<Element> alUniqueElements,
+                                            List<List<Element>> alLinksBetweenDetails,
+                                            List<List<Element>> alElementaryGraphChain) {
+        boolean isCombine = false;
+        for (int i = 0; i < alElementaryGraphChain.size(); i++) {
+            if (isBetweenTheElementsOfLink(alLinksBetweenDetails,
+                    alElementaryGraphChain.get(i).get(alElementaryGraphChain.get(i).size() - 1),
+                    alElementaryGraphChain.get(i).get(0))) {
+                //мы нашли цепь подходящую под правило (1)
+
+                //нужно создать модули из элементов цепи
+                List<Integer> rowsForCombine = new ArrayList<>();
+                for (int j = 0; j < alElementaryGraphChain.get(i).size(); j++) {
+                    rowsForCombine.add(alUniqueElements.indexOf(alElementaryGraphChain.get(i).get(j)));
+                }
+//                System.out.println(rowsForCombine);
+
+                List<Element> alCombineElements = getALCombineElements(alUniqueElements, rowsForCombine);
+//                System.out.println(alCombineElements);
+                List<Element> rowModule = belongsToModules(alCombineElements);
+                List<Integer> alNewRowsForCombine = new ArrayList<>();
+                List<Element> alNewElement = newElementForModule(rowModule, alCombineElements,
+                        alNewRowsForCombine, alUniqueElements);
+//                System.out.println(alNewRowsForCombine);
+
+                if (rowModule.isEmpty()) {
+                    for (int k = 0; k < alCombineElements.size(); k++) {
+                        rowModule.add(alCombineElements.get(k));
+                    }
+                    alModules.add(rowModule);
+
+                    //удалить все элементы цепи из матрицы (matrixForGraph), (alUniqueElements)
+                    sortALNewRowsForCombine(rowsForCombine);
+                    combineRowsInMatrixForGraph(matrixForGraph, alUniqueElements, rowsForCombine, 1);
+                    if (rowModule.size() == RESTRICTION) {
+                        for (int j = 0; j < matrixForGraph.size(); j++) {
+                            matrixForGraph.get(j).remove(alUniqueElements.indexOf(rowModule.get(0)));
+                        }
+                        matrixForGraph.remove(alUniqueElements.indexOf(rowModule.get(0)));
+                        alUniqueElements.remove(alUniqueElements.indexOf(rowModule.get(0)));
+                    }
+                    //найти все элементарные цепи в новой матрице
+                    alElementaryGraphChain = createElementaryGraphChain(matrixForGraph, alUniqueElements);
+                    sortALElementaryGraphChain(alElementaryGraphChain);
+                    removeExcessInChain(alElementaryGraphChain);
+
+                    isCombine = true;
+                } else if (rowModule.size() + alNewElement.size() <= RESTRICTION) {
+//                        System.out.println(alNewElement);
+                    for (int k = 0; k < alNewElement.size(); k++) {
+                        rowModule.add(alNewElement.get(k));
+                    }
+                    //удалить все элементы цепи из матрицы (matrixForGraph), (alUniqueElements)
+                    combineRowsInMatrixForGraph(matrixForGraph, alUniqueElements, alNewRowsForCombine, 0);
+                    if (rowModule.size() == RESTRICTION) {
+                        for (int j = 0; j < matrixForGraph.size(); j++) {
+                            matrixForGraph.get(j).remove(alUniqueElements.indexOf(rowModule.get(0)));
+                        }
+                        matrixForGraph.remove(alUniqueElements.indexOf(rowModule.get(0)));
+                        alUniqueElements.remove(alUniqueElements.indexOf(rowModule.get(0)));
+                    }
+                    //найти все элементарные цепи в новой матрице
+                    alElementaryGraphChain = createElementaryGraphChain(matrixForGraph, alUniqueElements);
+                    sortALElementaryGraphChain(alElementaryGraphChain);
+                    removeExcessInChain(alElementaryGraphChain);
+
+                    isCombine = true;
+                } else if (rowModule.size() + alNewElement.size() > RESTRICTION) {
+                    continue;
+                }
+                if (isCombine) {
+                    combineFirstRule(matrixForGraph, alUniqueElements,
+                            alLinksBetweenDetails, alElementaryGraphChain);
+                    break;
                 }
             }
         }
         if (!isCombine) {
-            for (int k = 0; k < alGroupUniqueElements.size(); k++) {
-                List<Element> elementThatRemained = new ArrayList<>();
-                elementThatRemained.add(alGroupUniqueElements.get(k));
-                alModules.add(elementThatRemained);
+            for (int i = 0; i < alUniqueElements.size(); i++) {
+                boolean isCheck = false;
+                for (int j = 0; j < alModules.size(); j++) {
+                    if (alModules.get(j).get(0).equals(alUniqueElements.get(i)))
+                        isCheck = true;
+                }
+                if (!isCheck) {
+                    List<Element> elementThatRemained = new ArrayList<>();
+                    elementThatRemained.add(alUniqueElements.get(i));
+                    alModules.add(elementThatRemained);
+                }
             }
         }
         return isCombine;
     }
 
-    private static List<Element> getALCombineElements(List<Element> alGroupUniqueElements, int[] ints) {
+    private static List<Element> getALCombineElements(List<Element> alGroupUniqueElements, List<Integer> ints) {
         List<Element> alCombineElements = new ArrayList<>();
-        for (int i = 0; i < ints.length; i++) {
-            alCombineElements.add(alGroupUniqueElements.get(ints[i]));
+        for (int i = 0; i < ints.size(); i++) {
+            alCombineElements.add(alGroupUniqueElements.get(ints.get(i)));
         }
         return alCombineElements;
     }
 
-    private static List<Element> newElementForModule(List<Element> rowModule, List<Element> alCombineElements) {
+    private static List<Element> newElementForModule(List<Element> rowModule, List<Element> alCombineElements,
+                                                     List<Integer> alNewRowsForCombine, List<Element> alUniqueElements) {
         List<Element> newElement = new ArrayList<>();
         for (int i = 0; i < alCombineElements.size(); i++) {
             boolean isBelongs = false;
@@ -432,7 +644,10 @@ public class Main {
                     break;
                 }
             }
-            if (!isBelongs) newElement.add(alCombineElements.get(i));
+            if (!isBelongs) {
+                newElement.add(alCombineElements.get(i));
+                alNewRowsForCombine.add(alUniqueElements.indexOf(alCombineElements.get(i)));
+            }
         }
         return newElement;
     }
@@ -449,40 +664,38 @@ public class Main {
         return new ArrayList<>();
     }
 
-    private static void combineRows(List<List<Boolean>> matrixForGraph, List<Element> alGroupUniqueElements, int[] rows) {
-
-
+    private static void combineRowsInMatrixForGraph(List<List<Boolean>> matrixForGraph,
+                                                    List<Element> alGroupUniqueElements, List<Integer> rows, int xz) {
 //        System.out.println();
 //        System.out.print("rows:");
 //        for (int i : rows) System.out.print(" " + i);
 //        System.out.print(" Elements " + alGroupUniqueElements);
 //        showMatrix_0_1(matrixForGraph);
 
-        for (int i = 1; i < rows.length; i++) {
+        for (int i = 1; i < rows.size(); i++) {
             for (int j = 0; j < matrixForGraph.size(); j++) {
-                if (matrixForGraph.get(rows[i]).get(j) && rows[0] != j) {
-                    matrixForGraph.get(rows[0]).set(j, true);
+                if (matrixForGraph.get(rows.get(i)).get(j) && rows.get(0) != j) {
+                    matrixForGraph.get(rows.get(0)).set(j, true);
 //                    System.out.println(" rows[" + i + "] = " + rows[i] + " i = " + j);
 //                    System.out.println(" rows[0] = " + rows[0] + " i = " + j);
                 }
-                if (matrixForGraph.get(j).get(rows[i]) && rows[0] != j) {
-                    matrixForGraph.get(j).set(rows[0], true);
+                if (matrixForGraph.get(j).get(rows.get(i)) && rows.get(0) != j) {
+                    matrixForGraph.get(j).set(rows.get(0), true);
 //                    System.out.println(" i = " + j + " rows[" + i + "] = " + rows[i]);
 //                    System.out.println(" i = " + j + " rows[0] = " + rows[0]);
                 }
             }
         }
 //        showMatrix_0_1(matrixForGraph);
-        for (int i = 1; i < rows.length; i++) {
+        for (int i = rows.size() - 1; i > xz - 1; i--) {
             for (int j = 0; j < matrixForGraph.size(); j++) {
-                matrixForGraph.get(j).remove(rows[i] - (i - 1));
+                matrixForGraph.get(j).remove((int) rows.get(i));
             }
-            matrixForGraph.remove(rows[i] - (i - 1));
-            alGroupUniqueElements.remove(rows[i] - (i - 1));
+            matrixForGraph.remove((int) rows.get(i));
+            alGroupUniqueElements.remove((int) rows.get(i));
         }
 
 //        showMatrix_0_1(matrixForGraph);
-//        alModules.add(rowModule);
     }
 
     private static void showMatrix_0_1(List<List<Boolean>> matrixForGraph) {
@@ -510,12 +723,13 @@ public class Main {
         return alLinks;
     }
 
-    private static List<List<Boolean>> createMatrixLinks(List<List<Element>> alLinksBetweenDetails, List<Element> elements) {
+    private static List<List<Boolean>> createMatrixLinks(List<List<Element>> alLinksBetweenDetails,
+                                                         List<Element> alUniqueElements) {
         List<List<Boolean>> matrixForGraph = new ArrayList<>();
-        for (int i = 0; i < elements.size(); i++) {
+        for (int i = 0; i < alUniqueElements.size(); i++) {
             List<Boolean> rowMatrixForGraph = new ArrayList<>();
-            for (int j = 0; j < elements.size(); j++) {
-                if (isBetweenTheElementsOfLink(alLinksBetweenDetails, elements.get(i), elements.get(j)))
+            for (int j = 0; j < alUniqueElements.size(); j++) {
+                if (isBetweenTheElementsOfLink(alLinksBetweenDetails, alUniqueElements.get(i), alUniqueElements.get(j)))
                     rowMatrixForGraph.add(true);
                 else rowMatrixForGraph.add(false);
             }
@@ -524,7 +738,8 @@ public class Main {
         return matrixForGraph;
     }
 
-    private static boolean isBetweenTheElementsOfLink(List<List<Element>> alLinksBetweenDetails, Element el1, Element el2) {
+    private static boolean isBetweenTheElementsOfLink(List<List<Element>> alLinksBetweenDetails,
+                                                      Element el1, Element el2) {
         for (int i = 0; i < alLinksBetweenDetails.size(); i++) {
             if (alLinksBetweenDetails.get(i).get(0).equals(el1) &&
                     alLinksBetweenDetails.get(i).get(1).equals(el2))
@@ -550,7 +765,7 @@ public class Main {
     private static String[] getData() {
         try {
             BufferedReader in = new BufferedReader(new FileReader(
-                    "D:\\JavaProject\\GKS_desktop\\src\\dataFile_Dmitry.txt"));
+                    "D:\\JavaProject\\GKS_desktop\\src\\dataFile_Catherine.txt"));
 
             String str;
             String[] tempData = new String[TEMP];
