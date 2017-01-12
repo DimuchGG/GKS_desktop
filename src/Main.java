@@ -16,7 +16,14 @@ import java.util.*;
  */
 public class Main {
 
-    public static final int RESTRICTION = 5;
+    private static final int INT_MODE = 1;
+    private static final int ELEMENT_MODE = 2;
+    private static final int RESTRICTION = 5;
+    private static final String DMITRY = "Dmitry";
+    private static final String CATHERINE = "Catherine";
+    private static final String VLAD = "Vlad";
+    private static final String IGOR = "Igor";
+    private static final String MINE = "Mine";
     //массив строк "деталей"
     private static String[] data;
     //просто константа для выделения памяти под массив
@@ -39,6 +46,11 @@ public class Main {
     private static List<List<Element>> alModules;
     //лист модулей
     private static List<List<List<Element>>> alGroupModules;
+    //лист упрощенных модулей
+    private static List<List<Element>> alSimpleModules;
+    //лист структур
+    private static List<List<List<Element>>> alStructures;
+    //счетчик для тестов
     private static int counter = 0;
 
     public static void main(String[] args) {
@@ -47,10 +59,7 @@ public class Main {
         data = getData();
 
         //Выводим в консоль содержимое файла с деталями
-        String stroka = "";
-        for (String s : data)
-            stroka += s + "\n";
-//        System.out.print(stroka);
+        showData();
 
         //Analysis - класс для работы с data[]
         Analysis analysis = new Analysis(data);
@@ -70,8 +79,8 @@ public class Main {
             showMatrixMatch();
 
             //объединение в группы
-            unionOfDetailsInGroups();
-            showGroupDetails("Group", alGroupDetails);
+            combineOfDetailsInGroups();
+            showGroupDetails("Group", alGroupDetails, INT_MODE);
 
             //создание групп с уникальными деталями
             alGroupUniqueElements = createGroupUniqueDetails(alGroupDetails);
@@ -79,17 +88,27 @@ public class Main {
 
             //сортировка листов групп по колличеству элементов в листе уникальных элементов
             sortListDetailsAndListUniqueDetails();
-//            showGroupDetails("Group", alGroupDetails);
+//            showGroupDetails("Group", alGroupDetails, INT_MODE);
 //            showGroupUniqueDetails("Group", alGroupUniqueElements);
 
             //упрощение групп
             alSimpleGroupDetails = simplifyGroups();
-            showGroupDetails("Group", alSimpleGroupDetails);
-//            showGroupDetailsOnTheElements(alSimpleGroupDetails);
+//            showGroupDetails("Group", alSimpleGroupDetails, INT_MODE);
+//            showGroupDetails("Group", alSimpleGroupDetails, ELEMENT_MODE);
 
             //создание модулей
-            createModule();
+            createModules();
             showGroupModules("Group", alGroupModules);
+
+            //упрощение модулей
+            alSimpleModules = simplifyModules();
+            showSimpleModules("Module", alSimpleModules);
+
+            //создание структур
+            createStructures();
+            showStructures("Structure", alStructures);
+
+
         }
     }
 
@@ -149,7 +168,7 @@ public class Main {
         }
     }
 
-    private static void unionOfDetailsInGroups() {
+    private static void combineOfDetailsInGroups() {
         alGroupDetails = new ArrayList<>();
 
         int[] arrayDetail = new int[data.length];
@@ -223,25 +242,15 @@ public class Main {
         }
     }
 
-    private static void showGroupDetails(String message, List<List<List<Element>>> alGroupDetails) {
+    private static void showGroupDetails(String message, List<List<List<Element>>> alGroupDetails, int mode) {
         System.out.println("");
         for (int i = 0; i < alGroupDetails.size(); i++) {
             System.out.print(message + " " + (i + 1) + ":");
             for (int j = 0; j < alGroupDetails.get(i).size(); j++) {
-//                System.out.print("  " + alGroupDetails.get(i).get(j).toString());
-                System.out.print("  " + String.valueOf(alDetails.indexOf(alGroupDetails.get(i).get(j)) + 1));
-            }
-            System.out.println(".");
-        }
-    }
-
-    private static void showGroupDetailsOnTheElements(List<List<List<Element>>> alGroupDetails) {
-        System.out.println("");
-        for (int i = 0; i < alGroupDetails.size(); i++) {
-            System.out.print("Group " + (i + 1) + ":");
-            for (int j = 0; j < alGroupDetails.get(i).size(); j++) {
-                System.out.print("  " + alGroupDetails.get(i).get(j).toString());
-//                System.out.print("  " + String.valueOf(alDetails.indexOf(alGroupDetails.get(i).get(j)) + 1));
+                if (mode == INT_MODE)
+                    System.out.print("  " + String.valueOf(alDetails.indexOf(alGroupDetails.get(i).get(j)) + 1));
+                if (mode == ELEMENT_MODE)
+                    System.out.print("  " + alGroupDetails.get(i).get(j).toString());
             }
             System.out.println(".");
         }
@@ -315,7 +324,7 @@ public class Main {
         return alSimpleGroupDetails;
     }
 
-    private static void createModule() {
+    private static void createModules() {
         List<List<Element>> alGroupUniqueElements = createGroupUniqueDetails(alSimpleGroupDetails);
 //        showGroupUniqueDetails("Group", alGroupUniqueElements);
 
@@ -324,7 +333,6 @@ public class Main {
 //        for (int i = 0; i < 1; i++) {
         for (int i = 0; i < alGroupUniqueElements.size(); i++) {
             List<List<Element>> alLinksBetweenDetails = creatingLinksBetweenDetails(alSimpleGroupDetails.get(i));
-//            List<List<Element>> alLinksBetweenDetails = creatingLinksBetweenDetails();
 
             List<List<Boolean>> matrixForGraph = createMatrixLinks(alLinksBetweenDetails,
                     alGroupUniqueElements.get(i));
@@ -334,55 +342,364 @@ public class Main {
             List<List<Element>> alElementaryGraphChain;
 
             alElementaryGraphChain = createElementaryGraphChain(matrixForGraph, alGroupUniqueElements.get(i));
-            sortALElementaryGraphChain(alElementaryGraphChain);
+            sortListByDecrease(alElementaryGraphChain);
             removeExcessInChain(alElementaryGraphChain);
-//            show3List(alElementaryGraphChain);
+//            show2List(alElementaryGraphChain);
 //            showMatrix_0_1(matrixForGraph);
 
             combineThirdRule(matrixForGraph, alGroupUniqueElements.get(i),
                     alLinksBetweenDetails, alElementaryGraphChain);
 
             alElementaryGraphChain = createElementaryGraphChain(matrixForGraph, alGroupUniqueElements.get(i));
-            sortALElementaryGraphChain(alElementaryGraphChain);
+            sortListByDecrease(alElementaryGraphChain);
             removeExcessInChain(alElementaryGraphChain);
 
-            combineFirstRule(matrixForGraph, alGroupUniqueElements.get(i),
+            combineSecondRule(matrixForGraph, alGroupUniqueElements.get(i),
                     alLinksBetweenDetails, alElementaryGraphChain);
 
             alGroupModules.add(alModules);
         }
     }
 
-    private static void showGroupModules(String message, List<List<List<Element>>> alGroupDetails) {
+    private static void showGroupModules(String message, List<List<List<Element>>> alGroupModules) {
         System.out.println("");
-        for (int i = 0; i < alGroupDetails.size(); i++) {
+        for (int i = 0; i < alGroupModules.size(); i++) {
             System.out.print(message + " " + (i + 1) + ":");
-            for (int j = 0; j < alGroupDetails.get(i).size(); j++) {
-                System.out.print("\n\t\tModule " + (j + 1) + ": " + alGroupDetails.get(i).get(j).toString());
-//                System.out.print("  " + String.valueOf(alDetails.indexOf(alGroupDetails.get(i).get(j)) + 1));
+            for (int j = 0; j < alGroupModules.get(i).size(); j++) {
+                System.out.print("\n\t\tModule " + (j + 1) + ": " + alGroupModules.get(i).get(j).toString());
             }
             System.out.println(".");
         }
     }
 
-    private static List<List<Element>> creatingLinksBetweenDetails() {
-        List<List<Element>> alLinksBetweenDetails = new ArrayList<>();
+    private static List<List<Element>> simplifyModules() {
+        List<List<Element>> alSimpleModules = fillSimplifyModules();
+        sortListByDecrease(alSimpleModules);
 
-        List<Element> temp = new ArrayList<>();
-        temp.add(new SpecificElement("T1"));
-        temp.add(new SpecificElement("T2"));
-        alLinksBetweenDetails.add(temp);
+        //удаляем единичные модули
+        List<List<Element>> alIndividualModules = selectIndividualModules(alSimpleModules);
+        removeIndividualModules(alSimpleModules, alIndividualModules);
 
-        temp = new ArrayList<>();
-        temp.add(new SpecificElement("T2"));
-        temp.add(new SpecificElement("T1"));
-        alLinksBetweenDetails.add(temp);
-        return alLinksBetweenDetails;
+        //удаляем повторения в модулях
+        removeRepetitionInModules(alSimpleModules);
+        removeRepetitionInIndividualModules(alIndividualModules);
+
+        alSimpleModules.addAll(alIndividualModules);
+        return alSimpleModules;
     }
 
-    private static void sortALElementaryGraphChain(List<List<Element>> alElementaryGraphChain) {
-        Collections.sort(alElementaryGraphChain,
-                (o1, o2) -> ((o1.size() < o2.size()) ? 1 : (o1.size() == o2.size() ? 0 : -1)));
+    private static void showSimpleModules(String message, List<List<Element>> alSimpleModules) {
+        System.out.println("");
+        for (int i = 0; i < alSimpleModules.size(); i++)
+            System.out.println(message + " " + (i + 1) + ":" + "  " + alSimpleModules.get(i).toString() + ".");
+    }
+
+    private static void createStructures() {
+        alStructures = new ArrayList<>();
+//        System.out.println(alSimpleModules);
+
+        List<List<List<Element>>> alLinksBetweenModules = createLinksBetweenModules(alSimpleModules);
+        List<List<List<Element>>> alModulesInStructures = findOutTheNumberOfStructures(alLinksBetweenModules);
+//        showLinksBetweenModules(alLinksBetweenModules);
+//        showLinksBetweenModules(alModulesInStructures);
+
+        for (int i = 0; i < alModulesInStructures.size(); i++) {
+            alLinksBetweenModules = createLinksBetweenModules(alModulesInStructures.get(i));
+//            showLinksBetweenModules(alLinksBetweenModules);
+
+//            for (List<Element> list : alModulesInStructures.get(i))
+//                System.out.print(" M" + (alSimpleModules.indexOf(list) + 1));
+//            System.out.println();
+
+            List<List<Integer>> alCounterInputOutput = getInputOutput(alModulesInStructures.get(i),
+                    alLinksBetweenModules);
+
+            List<Element> alFirstModule = findFirstModule(alCounterInputOutput, alModulesInStructures.get(i));
+            List<Element> alLastModule = findLastModule(alCounterInputOutput,
+                    alModulesInStructures.get(i), alFirstModule);
+            removeFirstAndLastModules(alModulesInStructures.get(i), alFirstModule, alLastModule);
+
+//            System.out.println("\tFirst " + "M" + (alSimpleModules.indexOf(alFirstModule) + 1));
+//            System.out.println("\tLast " + "M" + (alSimpleModules.indexOf(alLastModule) + 1));
+
+            List<List<List<Element>>> alAllCombinationStructures =
+                    getAllCombinationStructures(alModulesInStructures.get(i), alFirstModule, alLastModule);
+
+            List<List<Integer>> alCounterFeedback = new ArrayList<>();
+            for (int j = 0; j < alAllCombinationStructures.size(); j++) {
+//                for (List<Element> list : alAllCombinationStructures.get(j))
+//                    System.out.print(" M" + (alSimpleModules.indexOf(list) + 1));
+//                System.out.println();
+
+                List<Integer> rowCounterFeedback = new ArrayList<>();
+                rowCounterFeedback.add(j);
+
+                int counterFeedback = 0;
+
+                alLinksBetweenModules = createLinksBetweenModules(alAllCombinationStructures.get(j));
+//                showLinksBetweenModules(alLinksBetweenModules);
+
+                for (int k = 0; k < alLinksBetweenModules.size(); k++) {
+                    for (int l = 1; l < alLinksBetweenModules.get(k).size(); l++) {
+                        if (alAllCombinationStructures.get(j).indexOf(alLinksBetweenModules.get(k).get(l))
+                                < alAllCombinationStructures.get(j).indexOf(alLinksBetweenModules.get(k).get(l-1))) {
+                            counterFeedback++;
+                        }
+                    }
+                }
+                rowCounterFeedback.add(counterFeedback);
+                alCounterFeedback.add(rowCounterFeedback);
+            }
+
+            Collections.sort(alCounterFeedback,
+                    ((o1, o2) -> ((o1.get(1) < o2.get(1)) ? 1 : (o1.get(1).equals(o2.get(1)) ? 0 : -1))));
+//            System.out.println(alCounterFeedback);
+
+            alStructures.add(alAllCombinationStructures.get(alCounterFeedback.get(0).get(0)));
+        }
+    }
+
+    private static void showStructures(String message, List<List<List<Element>>> alStructures) {
+        System.out.println("");
+        for (int i = 0; i < alStructures.size(); i++) {
+            System.out.println(message + " " + (i + 1) + ": " + alStructures.get(i).toString() + ".");
+        }
+    }
+
+    private static List<List<List<Element>>> getAllCombinationStructures(List<List<Element>> alModulesInStructure,
+                                                    List<Element> alFirstModule, List<Element> alLastModule) {
+        List<List<List<Element>>> alAllCombinationStructures = generatePerm(alModulesInStructure);
+
+        for (int i = 0; i < alAllCombinationStructures.size(); i++) {
+            alAllCombinationStructures.get(i).add(0 , alFirstModule);
+            alAllCombinationStructures.get(i).add(alLastModule);
+        }
+
+//        showAllCombinationStructures(alAllCombinationStructures);
+
+        return alAllCombinationStructures;
+    }
+
+    private static void showAllCombinationStructures(List<List<List<Element>>> alAllCombinationStructures) {
+        for (List<List<Element>> allLists : alAllCombinationStructures) {
+            for (List<Element> list : allLists) {
+                System.out.print(" M" + (alSimpleModules.indexOf(list) + 1));
+            }
+            System.out.println();
+        }
+    }
+
+    public static List<List<List<Element>>> generatePerm(List<List<Element>> original) {
+        if (original.size() == 0) {
+            List<List<List<Element>>> result = new ArrayList<>();
+            result.add(new ArrayList<>());
+            return result;
+        }
+        List<Element> firstElement = original.remove(0);
+        List<List<List<Element>>> returnValue = new ArrayList<>();
+        List<List<List<Element>>> permutations = generatePerm(original);
+        for (List<List<Element>> smallerPermutated : permutations) {
+            for (int index=0; index <= smallerPermutated.size(); index++) {
+                List<List<Element>> temp = new ArrayList<>(smallerPermutated);
+                temp.add(index, firstElement);
+                returnValue.add(temp);
+            }
+        }
+        return returnValue;
+    }
+
+    private static void removeFirstAndLastModules(List<List<Element>> alModulesInStructure,
+                                                  List<Element> alFirstModule, List<Element> alLastModule) {
+        for (int j = 0; j < alModulesInStructure.size(); j++) {
+            if (alModulesInStructure.get(j).equals(alFirstModule)
+                    || alModulesInStructure.get(j).equals(alLastModule)) {
+                alModulesInStructure.remove(j);
+                j--;
+            }
+        }
+    }
+
+    private static List<Element> findLastModule(List<List<Integer>> alCounterInputOutput,
+                                                List<List<Element>> alModulesInStructure, List<Element> alFirstModule) {
+        List<Element> alLastModule = new ArrayList<>();
+        Integer maxReiteration = 0;
+        for (int i = 0; i < alCounterInputOutput.size(); i++) {
+            if (alCounterInputOutput.get(i).get(1) > maxReiteration
+                    && !alFirstModule.equals(alModulesInStructure.get(i))) {
+                maxReiteration = alCounterInputOutput.get(i).get(1);
+                alLastModule = alModulesInStructure.get(i);
+            }
+        }
+        return alLastModule;
+    }
+
+    private static List<Element> findFirstModule(List<List<Integer>> alCounterInputOutput,
+                                                 List<List<Element>> alModulesInStructure) {
+        List<Element> alFirstModule = new ArrayList<>();
+        Integer maxReiteration = 0;
+        for (int i = 0; i < alCounterInputOutput.size(); i++) {
+            if (alCounterInputOutput.get(i).get(0) > maxReiteration) {
+                maxReiteration = alCounterInputOutput.get(i).get(0);
+                alFirstModule = alModulesInStructure.get(i);
+            }
+        }
+        return alFirstModule;
+    }
+
+    private static List<List<Integer>> getInputOutput(List<List<Element>> alModulesInStructure,
+                                                      List<List<List<Element>>> alLinksBetweenModules) {
+        List<List<Integer>> alCounterInputOutput = new ArrayList<>();
+        for (int i = 0; i < alModulesInStructure.size(); i++) {
+            List<Integer> rowCounterInputOutput = new ArrayList<>();
+            rowCounterInputOutput.add(0);
+            rowCounterInputOutput.add(0);
+            for (int j = 0; j < alLinksBetweenModules.size(); j++) {
+                if (!alLinksBetweenModules.get(j).isEmpty()) {
+                    if (alModulesInStructure.get(i).equals(
+                            alLinksBetweenModules.get(j).get(0))) {
+                        rowCounterInputOutput.set(0, rowCounterInputOutput.get(0) + 1);
+                    }
+                    if (alModulesInStructure.get(i).equals(
+                            alLinksBetweenModules.get(j).get(alLinksBetweenModules.get(j).size() - 1))) {
+                        rowCounterInputOutput.set(1, rowCounterInputOutput.get(1) + 1);
+                    }
+                }
+            }
+            alCounterInputOutput.add(rowCounterInputOutput);
+        }
+        return alCounterInputOutput;
+    }
+
+    private static List<List<List<Element>>> findOutTheNumberOfStructures(
+            List<List<List<Element>>> alLinksBetweenModules) {
+        List<List<List<Element>>> alModulesInStructure = new ArrayList<>();
+        alModulesInStructure.addAll(alLinksBetweenModules);
+        for (int i = 0; i < alModulesInStructure.size(); i++) {
+            for (int j = i + 1; j < alModulesInStructure.size(); j++) {
+                for (int k = 0; k < alModulesInStructure.get(j).size(); k++) {
+//                    System.out.println(alLinksBetweenModules.get(i) + " * " + alLinksBetweenModules.get(j).get(k));
+                    if (alModulesInStructure.get(i).contains(alModulesInStructure.get(j).get(k))) {
+                        alModulesInStructure.get(i).addAll(alModulesInStructure.get(j));
+                        alModulesInStructure.remove(j);
+                        j--;
+                        break;
+                    }
+                }
+            }
+            for (int j = alModulesInStructure.get(i).size() - 1; j >= 0; j--) {
+                for (int k = 0; k < j; k++) {
+                    if (alModulesInStructure.get(i).get(j).equals(alModulesInStructure.get(i).get(k))) {
+                        alModulesInStructure.get(i).remove(j);
+                        break;
+                    }
+                }
+            }
+        }
+        return alModulesInStructure;
+    }
+
+    private static void showLinksBetweenModules(List<List<List<Element>>> alModulesInStructure) {
+        List<List<List<Element>>> alLinksBetweenModules = new ArrayList<>();
+        alLinksBetweenModules.addAll(alModulesInStructure);
+        System.out.println();
+        for (int i = 0; i < alModulesInStructure.size(); i++) {
+            System.out.print((i + 1) + ":\t");
+            for (int j = 0; j < alModulesInStructure.get(i).size(); j++) {
+                System.out.print("M" + (alSimpleModules.indexOf(alModulesInStructure.get(i).get(j)) + 1));
+                if (j != alModulesInStructure.get(i).size() - 1) {
+                    System.out.print(" -> ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    private static List<List<List<Element>>> createLinksBetweenModules(List<List<Element>> alSimpleModules) {
+        List<List<List<Element>>> alLinksBetweenModules = new ArrayList<>();
+        for (int i = 0; i < alDetails.size(); i++) {
+            List<List<Element>> alRowStructures = new ArrayList<>();
+            for (int j = 0; j < alDetails.get(i).size(); j++) {
+                for (int k = 0; k < alSimpleModules.size(); k++) {
+                    if (alSimpleModules.get(k).contains(alDetails.get(i).get(j))) {
+                        alRowStructures.add(alSimpleModules.get(k));
+                    }
+                }
+            }
+            for (int j = 1; j < alRowStructures.size(); j++) {
+                if (alRowStructures.get(j).equals(alRowStructures.get(j - 1))) {
+                    alRowStructures.remove(j);
+                    j--;
+                }
+            }
+            alLinksBetweenModules.add(alRowStructures);
+        }
+        return alLinksBetweenModules;
+    }
+
+    private static void removeRepetitionInIndividualModules(List<List<Element>> alIndividualModules) {
+        for (int i = 0; i < alIndividualModules.size(); i++) {
+            for (int j = i + 1; j < alIndividualModules.size(); j++) {
+                if (alIndividualModules.get(j).equals(alIndividualModules.get(i))) {
+                    alIndividualModules.remove(j);
+                    j--;
+                }
+            }
+        }
+    }
+
+    private static void removeRepetitionInModules(List<List<Element>> alSimpleModules) {
+        for (int i = 0; i < alSimpleModules.size(); i++) {
+            for (int j = 0; j < alSimpleModules.get(i).size(); j++) {
+                for (int k = i + 1; k < alSimpleModules.size(); k++) {
+                    if (alSimpleModules.get(k).contains(alSimpleModules.get(i).get(j))) {
+                        alSimpleModules.get(i).remove(j);
+                        sortListByDecrease(alSimpleModules);
+                        removeRepetitionInModules(alSimpleModules);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    private static void removeIndividualModules(List<List<Element>> alSimpleModules,
+                                                List<List<Element>> alIndividualModules) {
+        for (int i = 0; i < alIndividualModules.size(); i++) {
+            for (int j = 0; j < alSimpleModules.size(); j++) {
+                if (alSimpleModules.get(j).contains(alIndividualModules.get(i).get(0))) {
+                    alIndividualModules.remove(i);
+                    i--;
+                    break;
+                }
+            }
+        }
+    }
+
+    private static List<List<Element>> selectIndividualModules(List<List<Element>> alSimpleModules) {
+        List<List<Element>> alIndividualModules = new ArrayList<>();
+
+        for (int i = 0; i < alSimpleModules.size(); i++) {
+            if (alSimpleModules.get(i).size() == 1) {
+                alIndividualModules.add(alSimpleModules.get(i));
+                alSimpleModules.remove(i);
+                i--;
+            }
+        }
+        return alIndividualModules;
+    }
+
+    private static List<List<Element>> fillSimplifyModules() {
+        List<List<Element>> alSimpleModules = new ArrayList<>();
+        for (int i = 0; i < alGroupModules.size(); i++) {
+            for (int j = 0; j < alGroupModules.get(i).size(); j++) {
+                alSimpleModules.add(alGroupModules.get(i).get(j));
+            }
+        }
+        return alSimpleModules;
+    }
+
+    private static void sortListByDecrease(List<List<Element>> list) {
+        Collections.sort(list, (o1, o2) -> ((o1.size() < o2.size()) ? 1 : (o1.size() == o2.size() ? 0 : -1)));
     }
 
     private static void removeExcessInChain(List<List<Element>> alElementaryGraphChain) {
@@ -400,7 +717,7 @@ public class Main {
         }
     }
 
-    private static void show3List(List<List<Element>> list) {
+    private static void show2List(List<List<Element>> list) {
         System.out.println(list.size());
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i));
@@ -483,7 +800,7 @@ public class Main {
                     }
                     //найти все элементарные цепи в новой матрице
                     alElementaryGraphChain = createElementaryGraphChain(matrixForGraph, alUniqueElements);
-                    sortALElementaryGraphChain(alElementaryGraphChain);
+                    sortListByDecrease(alElementaryGraphChain);
                     removeExcessInChain(alElementaryGraphChain);
 
                     isCombine = true;
@@ -503,7 +820,7 @@ public class Main {
                     }
                     //найти все элементарные цепи в новой матрице
                     alElementaryGraphChain = createElementaryGraphChain(matrixForGraph, alUniqueElements);
-                    sortALElementaryGraphChain(alElementaryGraphChain);
+                    sortListByDecrease(alElementaryGraphChain);
                     removeExcessInChain(alElementaryGraphChain);
 
                     isCombine = true;
@@ -529,9 +846,9 @@ public class Main {
             alNewRowsForCombine.set(j + 1, temp.get(j));
     }
 
-    private static boolean combineFirstRule(List<List<Boolean>> matrixForGraph, List<Element> alUniqueElements,
-                                            List<List<Element>> alLinksBetweenDetails,
-                                            List<List<Element>> alElementaryGraphChain) {
+    private static boolean combineSecondRule(List<List<Boolean>> matrixForGraph, List<Element> alUniqueElements,
+                                             List<List<Element>> alLinksBetweenDetails,
+                                             List<List<Element>> alElementaryGraphChain) {
         boolean isCombine = false;
         for (int i = 0; i < alElementaryGraphChain.size(); i++) {
             if (isBetweenTheElementsOfLink(alLinksBetweenDetails,
@@ -572,7 +889,7 @@ public class Main {
                     }
                     //найти все элементарные цепи в новой матрице
                     alElementaryGraphChain = createElementaryGraphChain(matrixForGraph, alUniqueElements);
-                    sortALElementaryGraphChain(alElementaryGraphChain);
+                    sortListByDecrease(alElementaryGraphChain);
                     removeExcessInChain(alElementaryGraphChain);
 
                     isCombine = true;
@@ -592,7 +909,7 @@ public class Main {
                     }
                     //найти все элементарные цепи в новой матрице
                     alElementaryGraphChain = createElementaryGraphChain(matrixForGraph, alUniqueElements);
-                    sortALElementaryGraphChain(alElementaryGraphChain);
+                    sortListByDecrease(alElementaryGraphChain);
                     removeExcessInChain(alElementaryGraphChain);
 
                     isCombine = true;
@@ -600,7 +917,7 @@ public class Main {
                     continue;
                 }
                 if (isCombine) {
-                    combineFirstRule(matrixForGraph, alUniqueElements,
+                    combineSecondRule(matrixForGraph, alUniqueElements,
                             alLinksBetweenDetails, alElementaryGraphChain);
                     break;
                 }
@@ -765,7 +1082,7 @@ public class Main {
     private static String[] getData() {
         try {
             BufferedReader in = new BufferedReader(new FileReader(
-                    "D:\\JavaProject\\GKS_desktop\\src\\dataFile_Catherine.txt"));
+                    "D:\\JavaProject\\GKS_desktop\\src\\dataFile_" + MINE + ".txt"));
 
             String str;
             String[] tempData = new String[TEMP];
@@ -785,6 +1102,13 @@ public class Main {
         } catch (IOException e) {
         }
         return data;
+    }
+
+    private static void showData() {
+        String stroka = "";
+        for (String s : data)
+            stroka += s + "\n";
+        System.out.print(stroka);
     }
 
     private static boolean arrayDetailIsExist(int[] arrayDetail) {
